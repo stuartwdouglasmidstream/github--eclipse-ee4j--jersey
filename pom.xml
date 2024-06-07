@@ -248,7 +248,7 @@
                                     <requireJavaVersion>
                                         <version>${java.version}</version>
                                     </requireJavaVersion>
-                                    <dependencyConvergence/>
+                                    <dependencyConvergence />
                                 </rules>
                             </configuration>
                         </execution>
@@ -515,9 +515,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${deploy.mvn.plugin.version}</version>
-                    <configuration>
-                        <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.ops4j.pax.exam</groupId>
@@ -592,52 +589,34 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>${findbugs.mvn.plugin.version}</version>
-                    <configuration>
-                        <skip>${findbugs.skip}</skip>
-                        <threshold>${findbugs.threshold}</threshold>
-                        <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>
-                        <xmlOutput>true</xmlOutput>
-                        <findbugsXmlOutput>true</findbugsXmlOutput>
-                        <!-- findbugs detector configuration -->
-                        <jvmArgs>-Dfindbugs.glassfish.logging.validLoggerPrefixes=${findbugs.glassfish.logging.validLoggerPrefixes}</jvmArgs>
-                        <plugins>
-                            <plugin>
-                                <groupId>org.glassfish.findbugs</groupId>
-                                <artifactId>findbugs-logging-detectors</artifactId>
-                                <version>${findbugs.glassfish.version}</version>
-                            </plugin>
-                        </plugins>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.glassfish.findbugs</groupId>
-                            <artifactId>findbugs</artifactId>
-                            <version>${findbugs.glassfish.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${failsafe.mvn.plugin.version}</version>
                     <configuration>
-                        <!-- print full stack trace if error -->
                         <trimStackTrace>false</trimStackTrace>
                         <skipTests>${skip.tests}</skipTests>
                         <skipITs>${skip.tests}</skipITs>
                         <argLine>${failsafe.coverage.argline}</argLine>
+                        
+                        
+                        
+                        
+                        
+                        <!-- findbugs detector configuration -->
+                        
+                        
                     </configuration>
                     <executions>
-                        <execution>
-                            <goals>
-                                <goal>integration-test</goal>
-                                <goal>verify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+                    <dependencies>
+                        
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -645,6 +624,11 @@
                     <version>${war.mvn.plugin.version}</version>
                     <configuration>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <!-- print full stack trace if error -->
+                        
+                        
+                        
+                        
                     </configuration>
                 </plugin>
                 <plugin>
@@ -658,47 +642,26 @@
                     <version>${gfembedded.mvn.plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.glassfish.copyright</groupId>
-                    <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <configuration>
-                        <excludeFile>etc/config/copyright-exclude</excludeFile>
-                        <!--svn|mercurial|git - defaults to svn-->
-                        <scm>git</scm>
-                        <!-- turn on/off debugging -->
-                        <debug>false</debug>
-                        <!-- skip files not under SCM-->
-                        <scmOnly>true</scmOnly>
-                        <!-- turn off warnings -->
-                        <warn>false</warn>
-                        <!-- for use with repair -->
-                        <update>false</update>
-                        <!-- check that year is correct -->
-                        <ignoreYear>false</ignoreYear>
-                        <templateFile>etc/config/copyright.txt</templateFile>
-                        <bsdTemplateFile>etc/config/edl-copyright.txt</bsdTemplateFile>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>${felix.mvn.plugin.version}</version>
                     <extensions>true</extensions>
-                    <configuration>
-                        <instructions>
-                            <_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>
-                            <_nodefaultversion>false</_nodefaultversion>
-                            <Include-Resource>{maven-resources},${project.build.directory}/legal</Include-Resource>
-                        </instructions>
-                    </configuration>
                     <executions>
-                        <execution>
-                            <id>osgi-bundle</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>bundle</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+            <execution>
+              <id>osgi-bundle</id>
+              <phase>package</phase>
+              <goals>
+                <goal>bundle</goal>
+              </goals>
+            </execution>
+          </executions>
+                    <configuration>
+            <instructions>
+              <_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>
+              <_nodefaultversion>false</_nodefaultversion>
+              <Include-Resource>{maven-resources},${project.build.directory}/legal</Include-Resource>
+            </instructions>
+          </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -715,7 +678,6 @@
                     <artifactId>buildnumber-maven-plugin</artifactId>
                     <version>${buildnumber.mvn.plugin.version}</version>
                 </plugin>
-                <!-- TODO: remove the old jetty plugin dependencies -->
                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
@@ -726,69 +688,63 @@
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${jetty.plugin.version}</version>
                 </plugin>
+                <!-- TODO: remove the old jetty plugin dependencies -->
                 <plugin>
                     <groupId>org.glassfish.build</groupId>
                     <artifactId>gfnexus-maven-plugin</artifactId>
                     <version>0.16</version>
                     <configuration>
-                        <stagingRepos>
-                            <stagingRepo>
-                                <!--
-                                    The reference artifact used to identify the right staging repository
-                                -->
-                                <ref>org.glassfish.jersey:project:${project.version}:pom</ref>
-                                <profile>com.sun.jersey</profile>
-                            </stagingRepo>
-                        </stagingRepos>
-                        <!--
-                            Temporary till there is a jersey promotion profile
-                        -->
-                        <promotionProfile>glassfish-integration</promotionProfile>
-                        <message>JERSEY-${project.version}</message>
-                    </configuration>
+            <stagingRepos>
+              <stagingRepo>
+                <ref>org.glassfish.jersey:project:${project.version}:pom</ref>
+                <profile>com.sun.jersey</profile>
+              </stagingRepo>
+            </stagingRepos>
+            <promotionProfile>glassfish-integration</promotionProfile>
+            <message>JERSEY-${project.version}</message>
+          </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${shade.mvn.plugin.version}</version>
                     <executions>
-                        <execution>
-                            <id>shade-archive</id>
-                            <goals>
-                                <goal>shade</goal>
-                            </goals>
-                            <configuration>
-                                <minimizeJar>false</minimizeJar>
-                                <filters>
-                                    <filter>
-                                        <artifact>*:*</artifact>
-                                        <excludes>
-                                            <exclude>module-info.*</exclude>
-                                        </excludes>
-                                    </filter>
-                                </filters>
-                            </configuration>
-                        </execution>
-                    </executions>
+            <execution>
+              <id>shade-archive</id>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <minimizeJar>false</minimizeJar>
+                <filters>
+                  <filter>
+                    <artifact>*:*</artifact>
+                    <excludes>
+                      <exclude>module-info.*</exclude>
+                    </excludes>
+                  </filter>
+                </filters>
+              </configuration>
+            </execution>
+          </executions>
                     <configuration>
-                        <shadeTestJar>false</shadeTestJar>
-                        <minimizeJar>true</minimizeJar>
-                        <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
-                        <!-- Do not create reduced pom - jaxrs-ri cannot be built when set to true -->
-                        <createDependencyReducedPom>false</createDependencyReducedPom>
-                    </configuration>
+            <shadeTestJar>false</shadeTestJar>
+            <minimizeJar>true</minimizeJar>
+            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+            <createDependencyReducedPom>false</createDependencyReducedPom>
+          </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>${antrun.mvn.plugin.version}</version>
                     <dependencies>
-                        <dependency>
-                            <groupId>org.apache.ant</groupId>
-                            <artifactId>ant</artifactId>
-                            <version>1.10.12</version>
-                        </dependency>
-                    </dependencies>
+            <dependency>
+              <groupId>org.apache.ant</groupId>
+              <artifactId>ant</artifactId>
+              <version>1.10.12</version>
+            </dependency>
+          </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.fortasoft</groupId>
@@ -803,11 +759,13 @@
                         <dependency>
                             <groupId>net.sf.proguard</groupId>
                             <artifactId>proguard-base</artifactId>
-                            <version>5.1</version><!-- transitive dependency version increased from 5.0 -->
+                            <version>5.1</version>
                             <scope>runtime</scope>
                         </dependency>
                     </dependencies>
                 </plugin>
+                
+                
             </plugins>
         </pluginManagement>
         <plugins>
@@ -943,7 +901,6 @@
             <!-- Use it with release-perform goal to skip another test run. -->
             <id>testsSkip</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
                 <!-- this is how to align back with maven standards where property 'skipTests' makes maven-surefire-plugin
                 (and also maven-failsafe-plugin) skip tests execution -->
                 <property>
@@ -960,7 +917,6 @@
         <profile>
             <id>checkstyleSkip</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <checkstyle.skip>true</checkstyle.skip>
@@ -969,7 +925,6 @@
         <profile>
             <id>findbugsSkip</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <findbugs.skip>true</findbugs.skip>
@@ -978,7 +933,6 @@
         <profile> <!-- tests module will be automatically included unless tests.excluded env variable is set -->
             <id>testsIncluded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
                 <property>
                   <name>!tests.excluded</name>
                 </property>
@@ -990,7 +944,6 @@
         <profile> <!-- examples module will be automatically included unless examples.excluded env variable is set -->
             <id>examplesIncluded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>!examples.excluded</name>
                 </property>
@@ -1002,7 +955,6 @@
         <profile> <!-- bundles module will be automatically included unless bundles.excluded env variable is set -->
             <id>bundlesIncluded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>!bundles.excluded</name>
                 </property>
@@ -1014,7 +966,6 @@
         <profile> <!-- test-framework module will be automatically included unless test-framework.excluded env variable is set -->
             <id>testFrameworkIncluded</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>!test-framework.excluded</name>
                 </property>
@@ -1029,7 +980,6 @@
                 <module>docs</module>
             </modules>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -1040,9 +990,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -1131,7 +1078,6 @@
         <profile>
             <id>project-info</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <reporting>
                 <plugins>
